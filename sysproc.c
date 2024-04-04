@@ -89,3 +89,35 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+//HW4:
+
+//System call hello()
+int
+sys_hello(void)
+{
+ cprintf("Hello");
+ return 0;  
+}
+//System call helloYou()
+int 
+sys_helloYou(void)
+{
+ char* name; 
+
+ if (argstr(0,&name) < 0) return -1;
+ cprintf("Hello %s", name);
+ return 0; 
+}
+//System call getNumProc()
+int 
+sys_getNumProc(void)
+{
+ return getNumProc();  
+}
+//System call getMaxPid()
+int 
+sys_getMaxPid(void)
+{
+ return 0;
+}

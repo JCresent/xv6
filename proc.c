@@ -18,6 +18,7 @@ int nextpid = 1;
 extern void forkret(void);
 extern void trapret(void);
 
+extern int getNumProc(void);
 static void wakeup1(void *chan);
 
 void
@@ -531,4 +532,22 @@ procdump(void)
     }
     cprintf("\n");
   }
+
+//Helper function to view and count running proc in proc table
+int getNumProc(void)
+{
+  //Vars to get process table and count number of processes (except unused) 
+  struct proc *p;
+  int count = 0;
+  acquire(&ptable.lock);
+  
+  for(p=ptable.proc; p<&ptable.proc[NPROC]; p++)
+  {
+    if(p->state != UNUSED) count++; 
+  }
+	
+  release(&ptable.lock);
+  return count;
+ }
+
 }
